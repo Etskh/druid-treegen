@@ -19,16 +19,20 @@ void HelloWorld(const FunctionCallbackInfo<Value>& args) {
 }
 
 
-void treeToObject( v8::Local<v8::Array>* array, const Node::Handle node ) {
-    static size_t index = 0;
+void treeToObject( Isolate* isolate, v8::Local<v8::Array>* array, const Node::Handle node ) {
+    static int index = 0;
 
-    v8::Local<v8::Object> obj = v8::Object::New();
+
+    v8::Local<v8::Object> obj = v8::Object::New(isolate);
     obj->Set(
         v8::String::NewFromUtf8(isolate, "length"),
         v8::Number::New(isolate, node->getLength() )
     );
 
-    array->Set(index, obj);
+    //array->Set(
+    //    v8::Number::New(isolate, index),
+    //    obj
+    //);
 
     index++;
     printf("Outputing branch with length %.4f\n", node->getLength() );
@@ -63,7 +67,7 @@ void Generate(const FunctionCallbackInfo<Value>& args) {
         v8::Local<v8::Array> array = v8::Array::New(isolate);
 
         // Iterate through all the nodes in the tree
-        tree->getRootNode()->iterateAll_r(std::bind( treeToObject, &array, std::placeholders::_1 ));
+        tree->getRootNode()->iterateAll_r(std::bind( treeToObject, isolate, &array, std::placeholders::_1 ));
 
         // Set the tree to be the nodes
         jsonTree->Set(v8::String::NewFromUtf8(isolate, "nodes"), array);
