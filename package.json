@@ -1,0 +1,21 @@
+{
+  "name": "druid-treegen",
+  "version": "0.1.0",
+  "description": "Generates trees and exports JSON",
+  "main": "treegen.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Etskh/druid-treegen.git"
+  },
+  "author": "Etskh",
+  "license": "MIT",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/Etskh/druid-treegen/issues"
+  },
+  "homepage": "https://github.com/Etskh/druid-treegen"
+}
